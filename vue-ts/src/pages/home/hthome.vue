@@ -1,16 +1,10 @@
 <template>
   <div class="home"></div>
-  <a href="https://www.w3school.com.cn" target="_blank">测试a标签跳转_blank新的webview</a>
-  <button class="navLocalDetail" @click="navLocalDetail">跳转到本地详情页</button>
-  <button class="navDetail" @click="navToDetail">测试与taro的交互 跳转新的webview</button>
-  <button class="postMessage" @click="postMessage">测试与taro的交互 h5传值到taro</button>
-  <!-- <button class="goback" @click="goback">返回上一页</button> -->
-  <!-- <button class="postMessage" @click="handleMsgEvent">测试与uni-app的交互 h5 拍照交互</button> -->
-  <!-- <iframe class="web" src="https://www.htfutures.com/main/gw/index.shtml" frameborder="0"></iframe> -->
+  <button class="back-button" @click="goback">&lt; 返回</button>
   <iframe
     ref="iframe"
     class="web"
-    src="http://localhost:5173/"
+    src="https://www.htfutures.com/main/gw/service/jyrl/cddt/index.shtml"
     frameborder="0"
     @load="initIframeEvents"
   ></iframe>
@@ -63,5 +57,19 @@ const postMessage = () => {}
 .web {
   width: 100%;
   height: 100vh;
+}
+
+.back-button {
+  margin-top: 10px;
+  padding: 5px 10px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.back-button:hover {
+  background-color: #0056b3;
 }
 </style>

@@ -5,11 +5,15 @@ const router = createRouter({
   routes: [
     {
       path: '/',
-      redirect: '/home'
+      redirect: '/hthome'
     },
     {
       path: '/home',
       component: () => import('@/pages/home/home.vue')
+    },
+    {
+      path: '/hthome',
+      component: () => import('@/pages/home/hthome.vue')
     },
     {
       path: '/detail',
