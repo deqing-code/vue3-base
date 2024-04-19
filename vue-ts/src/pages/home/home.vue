@@ -7,13 +7,6 @@
   <!-- <button class="goback" @click="goback">返回上一页</button> -->
   <!-- <button class="postMessage" @click="handleMsgEvent">测试与uni-app的交互 h5 拍照交互</button> -->
   <!-- <iframe class="web" src="https://www.htfutures.com/main/gw/index.shtml" frameborder="0"></iframe> -->
-  <iframe
-    ref="iframe"
-    class="web"
-    src="http://localhost:5173/"
-    frameborder="0"
-    @load="initIframeEvents"
-  ></iframe>
 </template>
 
 <script setup lang="ts">
@@ -48,7 +41,10 @@ const navLocalDetail = () => {
 
 const navToDetail = () => {
   console.log('jump to vue detail')
-  htsdk.navigateTo('/pages/detail/index?url=http://localhost:5173/#/detail', { isShowNew: 1 })
+  htsdk.navigateTo('/pages/detail/index?url=http://localhost:5173/#/detail&__wachangehash=1', {
+    isShowNew: 1
+  })
+  // htsdk.navigateTo('/pages/detail/index?url=http://localhost:5173/#/detail', { isShowNew: 1 })
   //   htsdk.navigateTo('/pages/detail/index?url=http://localhost:5173/#/search', { isShowNew: true })
 }
 

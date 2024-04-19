@@ -8,8 +8,8 @@ class HTSDK {
   //   }
 
   env() {
-    wx.miniProgram.getEnv(function (res) {
-      console.log(res.miniprogram)
+    ht_uni.getEnv(function (res) {
+      console.log(res)
     })
   }
 
@@ -19,6 +19,19 @@ class HTSDK {
     if (isShowNew === 1) {
       ht_uni.navigateTo({
         url: url
+      })
+    } else {
+      // ht_uni.navigateBack({
+      //   delta: 1
+      // })
+      ht_uni.redirectTo({
+        url: url,
+        success: function (res) {
+          console.log('跳转成功', res)
+        },
+        fail: function (err) {
+          console.error('跳转失败', err)
+        }
       })
     }
 
@@ -31,6 +44,7 @@ class HTSDK {
     // 向 taro 发送消息，调用方法并传递参数
     this.env()
     ht_uni.postMessage(params)
+    // ht_uni.navigateBack()
     // window?.wx.miniProgram.postMessage({
     //   data: params,
     //   success: function (res) {

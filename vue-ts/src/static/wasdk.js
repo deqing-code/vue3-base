@@ -23,7 +23,7 @@ class WASDK {
     if ('onhashchange' in window && window.addEventListener && !WASDK.hashInfo.isInit) {
       // if (window.addEventListener && !WASDK.hashInfo.isInit) {
       WASDK.hashInfo.isInit = true
-      console.log('WASDK constructor')
+      console.log('h5 WASDK constructor')
       // 绑定hashchange事件
       window.addEventListener(
         'hashchange',
@@ -34,6 +34,7 @@ class WASDK {
             // }
             return
           }
+          // alert('执行hashchange')
           WASDK.hashInfo.originHref = window.location.href
           console.log('window.location.href ==', window.location.href)
           console.log('window.native ==', window.native)
@@ -63,22 +64,22 @@ class WASDK {
                 ]
               })
             }
+            // 标记回调函数已执行
+            WASDK.hashInfo.callbackExecuted = true
+            // 触发缓存数值的回调
+            WASDK.hashInfo.callbackArr.forEach((callback) => {
+              // alert('执行回调函数')
+              callback()
+            })
+            // 设置定时器，2秒后重置标志变量
+            setTimeout(() => {
+              WASDK.hashInfo.callbackExecuted = false
+            }, 1000)
+            setTimeout(() => {
+              console.log('WASDK hashchange reset')
+              window.history.go(-1)
+            }, 0)
           }
-          // 标记回调函数已执行
-          WASDK.hashInfo.callbackExecuted = true
-
-          // 触发缓存数值的回调
-          WASDK.hashInfo.callbackArr.forEach((callback) => {
-            callback()
-          })
-
-          // 设置定时器，2秒后重置标志变量
-          setTimeout(() => {
-            WASDK.hashInfo.callbackExecuted = false
-          }, 1000)
-          setTimeout(() => {
-            window.history.go(-1)
-          }, 0)
         },
         false
       )
@@ -141,6 +142,11 @@ class WASDK {
           content: condition
         }
       }
+      // htsdk.navigateTo(
+      //   '/pages/detail/index?url=http://localhost:5173/#/detail&message=' + obj.content,
+      //   { isShowNew: 0 }
+      // )
+
       htsdk.postMessage({
         data: {
           messageData: message
@@ -148,18 +154,18 @@ class WASDK {
       })
 
       // 如果不是 url 或者 path 触发，则对 condition 是否需要返回进行判断
-      if (message.trigger.type === 'immediately') {
-        try {
-          condition = parseInt(condition, 10)
-        } catch (e) {
-          // 保证返回正确性
-          if (condition && typeof condition === 'number' && !isNaN(condition)) {
-            this.handler.navigateBack({ delta: Math.abs(condition) })
-          }
-        }
-      } else {
-        console.log('参数错误，调用 serviceDone 方法，传入的对象中不包含 key 值')
-      }
+      // if (message.trigger.type === 'immediately') {
+      //   try {
+      //     condition = parseInt(condition, 10)
+      //   } catch (e) {
+      //     // 保证返回正确性
+      //     if (condition && typeof condition === 'number' && !isNaN(condition)) {
+      //       this.handler.navigateBack({ delta: Math.abs(condition) })
+      //     }
+      //   }
+      // } else {
+      //   console.log('参数错误，调用 serviceDone 方法，传入的对象中不包含 key 值')
+      // }
     }
   }
 }
