@@ -11,7 +11,7 @@
     <script type="module" src="/src/main.ts"></script>
     <script
       type="text/javascript"
-      src="http://res.wx.qq.com/open/js/jweixin-1.6.0.js"
+      src="https://res.wx.qq.com/open/js/jweixin-1.6.0.js"
       defer
     ></script>
     <script type="text/javascript">
@@ -21,7 +21,9 @@
         document.writeln('<script src="https://appx/web-view.min.js"' + '>' + '<' + '/' + 'script>')
       } else if (/miniProgram/i.test(userAgent) && /micromessenger/i.test(userAgent)) {
         // 微信小程序 JS-SDK 如果不需要兼容微信小程序，则无需引用此 JS 文件。
-        // document.write('<script type="text/javascript" src="https://res.wx.qq.com/open/js/jweixin-1.4.0.js"><\/script>');
+        // document.write(
+        //   '<script type="text/javascript" src="https://res.wx.qq.com/open/js/jweixin-1.7.1.js" defer><\/script>'
+        // )
         // document.write('<script type="text/javascript" src="@/static/uni.webview.1.5.5.js"><\/script>');
       }
     </script>

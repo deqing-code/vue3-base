@@ -41,8 +41,9 @@ const navLocalDetail = () => {
 
 const navToDetail = () => {
   console.log('jump to vue detail')
-  htsdk.navigateTo('/pages/detail/index?url=http://localhost:5173/#/detail&__wachangehash=1', {
-    isShowNew: 1
+
+  wx.miniProgram.navigateTo({
+    url: '/pages/detail/index?url=http://localhost:5173/#/detail'
   })
   // htsdk.navigateTo('/pages/detail/index?url=http://localhost:5173/#/detail', { isShowNew: 1 })
   //   htsdk.navigateTo('/pages/detail/index?url=http://localhost:5173/#/search', { isShowNew: true })

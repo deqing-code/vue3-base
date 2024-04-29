@@ -2,13 +2,35 @@
 import WASDK from '@/static/wasdk'
 import htsdk from '@/static/htsdk'
 import { stringifyQuery, useRouter } from 'vue-router'
-import { ref } from 'vue'
+import { onMounted, ref } from 'vue'
+import test from '@/components/test.vue'
 const router = useRouter()
 const val = ref(0)
 const sdk = new WASDK()
+
+onMounted(() => {
+  console.log('mounted')
+
+  // window.onhashchange = () => {
+  //   const hash = location.hash
+  //   if (hash.includes('__wachangehash=1')) {
+  //     console.log('hash changed')
+  //     location.hash = decodeURIComponent(location.hash)
+  //     alert(window.location.hash)
+  //     history.go(-1)
+  //     // const query = stringifyQuery(router.currentRoute.query)
+  //     // console.log(query)
+  //   }
+  // }
+})
 const goback = () => {
   console.log('goback')
   router.back()
+}
+
+const textLocalHash = () => {
+  console.log('textLocalHash')
+  window.location.hash = '#/detail/#/&__wachangehash=1'
 }
 
 const add = () => {
@@ -17,8 +39,11 @@ const add = () => {
 }
 
 const choosePay = () => {
-  htsdk.navigateTo('/pages/pay/index?title=支付页面', {
-    isShowNew: 1
+  // htsdk.navigateTo('/pages/pay/index?title=支付页面', {
+  //   isShowNew: 1
+  // })
+  wx.miniProgram.navigateTo({
+    url: '/pages/pay/index?title=支付页面'
   })
 }
 
@@ -37,7 +62,6 @@ const shareAction = () => {
 
 // window.location.href = 'http://localhost:5173/#/detail/#/&__wachangehash=1&_iswebviewpush=1713429309950&type=pay&code=0&data=%5Bobject%20Object%5D'
 // window.location.hash = '#/detail/#/&__wachangehash=1'
-// window.location.hash =
 // '&__wachangehash=1&_iswebviewpush=1713428558648&type=pay&code=0&data=%5Bobject%20Object%5D'
 // window.location.replace(window.location.href + '/&__onchooseimage=1')
 // history.pushState({}, '', window.location.href + '/&__onchooseimage=1')
@@ -71,9 +95,11 @@ sdk.onShow(onShowCallback)
 </script>
 
 <template>
-  <h1>{{ val }}</h1>
-  <button @click="add">+1</button>
+  <keep-alive>
+    <component :is="test"></component>
+  </keep-alive>
   <button @click="goback">返回</button>
+  <button @click="textLocalHash">测试h5本地hash跳转</button>
   <button @click="choosePay">跳转到支付页面</button>
   <button @click="shareAction">分享页面</button>
 </template>

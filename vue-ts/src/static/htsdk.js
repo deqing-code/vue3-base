@@ -1,5 +1,4 @@
 import ht_uni from '@/static/uni.webview'
-
 class HTSDK {
   //   constructor(options = null, success = null, fail = null) {
   //     this.options = options;
@@ -43,17 +42,17 @@ class HTSDK {
   postMessage(params) {
     // 向 taro 发送消息，调用方法并传递参数
     this.env()
-    ht_uni.postMessage(params)
+    // ht_uni.postMessage(params)
     // ht_uni.navigateBack()
-    // window?.wx.miniProgram.postMessage({
-    //   data: params,
-    //   success: function (res) {
-    //     console.log('消息发送成功', res)
-    //   },
-    //   fail: function (err) {
-    //     console.error('消息发送失败', err)
-    //   }
-    // })
+    window?.wx.miniProgram.postMessage({
+      data: params,
+      success: function (res) {
+        console.log('消息发送成功', res)
+      },
+      fail: function (err) {
+        console.error('消息发送失败', err)
+      }
+    })
 
     // 发送选择图片的消息给小程序
     // window.postMessage({ type: "chooseImage" });

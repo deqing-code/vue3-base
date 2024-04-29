@@ -19,72 +19,74 @@ class WASDK {
     callbackExecuted: false,
     callbackArr: []
   }
-  constructor() {
-    if ('onhashchange' in window && window.addEventListener && !WASDK.hashInfo.isInit) {
-      // if (window.addEventListener && !WASDK.hashInfo.isInit) {
-      WASDK.hashInfo.isInit = true
-      console.log('h5 WASDK constructor')
-      // 绑定hashchange事件
-      window.addEventListener(
-        'hashchange',
-        () => {
-          if (WASDK.hashInfo.callbackExecuted) {
-            // if (WASDK.hashInfo.originHref != window.location.href) {
-            //   window.history.go(-1)
-            // }
-            return
-          }
-          // alert('执行hashchange')
-          WASDK.hashInfo.originHref = window.location.href
-          console.log('window.location.href ==', window.location.href)
-          console.log('window.native ==', window.native)
-          if (Utils.gethash(window.location.href, '__wachangehash') === '1') {
-            const jsticket =
-              (window.native && window.native.adapter && window.native.adapter.jsticket) || null
-            const ua = navigator.userAgent
-            console.log('ua===', ua)
-            // 非安卓系统要重新设置config
-            if (jsticket && (ua.indexOf('Android') > -1 || ua.indexOf('Adr') > -1)) {
-              window.wx.config({
-                debug: false,
-                appId: jsticket.appId,
-                timestamp: jsticket.timestamp,
-                nonceStr: jsticket.nonceStr,
-                signature: jsticket.signature,
-                jsApiList: [
-                  'onMenuShareTimeline',
-                  'onMenuShareAppMessage',
-                  'onMenuShareQQ',
-                  'onMenuShareWeibo',
-                  'onMenuShareQZone',
-                  'scanQRCode',
-                  'chooseImage',
-                  'uploadImage',
-                  'previewImage'
-                ]
-              })
-            }
-            // 标记回调函数已执行
-            WASDK.hashInfo.callbackExecuted = true
-            // 触发缓存数值的回调
-            WASDK.hashInfo.callbackArr.forEach((callback) => {
-              // alert('执行回调函数')
-              callback()
-            })
-            // 设置定时器，2秒后重置标志变量
-            setTimeout(() => {
-              WASDK.hashInfo.callbackExecuted = false
-            }, 1000)
-            setTimeout(() => {
-              console.log('WASDK hashchange reset')
-              window.history.go(-1)
-            }, 0)
-          }
-        },
-        false
-      )
-    }
-  }
+  // constructor() {
+  //   if ('onhashchange' in window && window.addEventListener && !WASDK.hashInfo.isInit) {
+  //     // if (window.addEventListener && !WASDK.hashInfo.isInit) {
+  //     WASDK.hashInfo.isInit = true
+  //     console.log('h5 WASDK constructor')
+  //     // 绑定hashchange事件
+  //     window.addEventListener(
+  //       'hashchange',
+  //       () => {
+  //         // if (WASDK.hashInfo.callbackExecuted) {
+  //         //   // if (WASDK.hashInfo.originHref != window.location.href) {
+  //         //   //   window.history.go(-1)
+  //         //   // }
+  //         //   return
+  //         // }
+  //         // alert('执行hashchange')
+  //         WASDK.hashInfo.originHref = window.location.href
+  //         // window.location.href = window.location.href.replace('%23', '#')
+  //         console.log('window.location.href ==', window.location.href)
+  //         alert(window.location.href)
+  //         console.log('window.native ==', window.native)
+  //         if (Utils.gethash(window.location.href, '__wachangehash') === '1') {
+  //           const jsticket =
+  //             (window.native && window.native.adapter && window.native.adapter.jsticket) || null
+  //           const ua = navigator.userAgent
+
+  //           // 非安卓系统要重新设置config
+  //           // if (jsticket && (ua.indexOf('Android') > -1 || ua.indexOf('Adr') > -1)) {
+  //           //   console.log('ua===', ua)
+  //           //   window.wx.config({
+  //           //     debug: false,
+  //           //     appId: jsticket.appId,
+  //           //     timestamp: jsticket.timestamp,
+  //           //     nonceStr: jsticket.nonceStr,
+  //           //     signature: jsticket.signature,
+  //           //     jsApiList: [
+  //           //       'onShareAppMessage',
+  //           //       'onMenuShareAppMessage',
+  //           //       'onMenuShareQQ',
+  //           //       'onMenuShareWeibo',
+  //           //       'onMenuShareQZone',
+  //           //       'scanQRCode',
+  //           //       'chooseImage',
+  //           //       'uploadImage',
+  //           //       'previewImage'
+  //           //     ]
+  //           //   })
+  //           // }
+  //           // 标记回调函数已执行
+  //           // WASDK.hashInfo.callbackExecuted = true
+  //           // 触发缓存数值的回调
+  //           WASDK.hashInfo.callbackArr.forEach((callback) => {
+  //             callback()
+  //           })
+  //           // 设置定时器，2秒后重置标志变量
+  //           // setTimeout(() => {
+  //           //   WASDK.hashInfo.callbackExecuted = false
+  //           // }, 1000)
+  //           // setTimeout(() => {
+  //           // alert('执行回调函数')
+  //           window.history.go(-1)
+  //           // }, 0)
+  //         }
+  //       },
+  //       false
+  //     )
+  //   }
+  // }
 
   static destroyCallbackArr() {
     WASDK.hashInfo.callbackArr = []
